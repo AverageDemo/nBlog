@@ -1,5 +1,3 @@
-import Head from 'next/head';
-import Image from 'next/image';
 import moment from 'moment';
 import type { GetStaticProps } from 'next';
 import type { Post } from '@prisma/client';
