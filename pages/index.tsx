@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import type { GetStaticProps } from 'next';
+import moment from 'moment';
 import { Post, PrismaClient } from '@prisma/client';
 
-import styles from '../styles/Home.module.css';
-import moment from 'moment';
+import type { PostType } from '../types/post';
+import styles from '@/styles/Home.module.css';
 
-export default function Home({ posts }: { posts: Post[] }) {
+export default function Home({ posts }: Props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +20,7 @@ export default function Home({ posts }: { posts: Post[] }) {
         <ul>
           {posts.map((post) => (
             <li key={post.id}>
-              {post.title} by {post.author} on {moment(post.createdAt).format('MMMM Do YYYY')}
+              {post.title} by {post.author.username} on {moment(post.createdAt).format('MMMM Do YYYY')}
             </li>
           ))}
         </ul>
@@ -40,11 +42,22 @@ export default function Home({ posts }: { posts: Post[] }) {
   );
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const prisma = new PrismaClient();
-  const posts: Post[] = await prisma.post.findMany();
+  const posts: Post[] = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    include: {
+      author: { select: { username: true } },
+    },
+  });
 
   return {
     props: { posts },
   };
-}
+};
+
+type Props = {
+  posts: PostType[];
+};
