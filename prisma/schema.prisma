@@ -11,14 +11,16 @@ generator client {
 }
 
 model Post {
-  id        Int      @id @default(autoincrement())
-  category  Category @relation(fields: [cid], references: [id])
-  cid       Int
-  tags      String[]
-  title     String
-  slug      String
-  content   String?
-  createdAt Boolean  @default(false)
+  id       Int      @id @default(autoincrement())
+  category Category @relation(fields: [cid], references: [id])
+  cid      Int
+  tags     String[]
+  title    String
+  slug     String
+  content  String?
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
   author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
 }
