@@ -21,6 +21,7 @@
     "superjson": "^1.7.4"
   },
   "devDependencies": {
+    "@types/node": "15.12.2",
     "@types/react": "17.0.15",
     "babel-plugin-superjson-next": "^0.3.0",
     "eslint": "7.31.0",

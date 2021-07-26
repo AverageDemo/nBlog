@@ -1,6 +1,6 @@
 import { AuthorType } from './author';
 
-export type PostType = {
+type PostType = {
   id: number;
   title: string;
   author: AuthorType;
@@ -8,3 +8,5 @@ export type PostType = {
   createdAt: number;
   published: boolean;
 };
+
+export default PostType;
