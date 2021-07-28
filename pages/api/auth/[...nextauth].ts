@@ -1,3 +1,4 @@
+// TODO: Implement custom signin page
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import { compareSync } from 'bcryptjs';
@@ -23,7 +24,7 @@ export default NextAuth({
 
         if (user) {
           if (compareSync(password, user.password)) {
-            const { firstName, username, email, usergroup } = user;
+            const { firstName, username, email } = user;
 
             const userObj: UserData = {
               id: username,

@@ -2,7 +2,7 @@ import moment from 'moment';
 import type { GetStaticProps } from 'next';
 import type { Post } from '@prisma/client';
 
-import PostType from '@/types/post.type';
+import type PostType from '@/types/post.type';
 import { getPosts } from '@/lib/posts';
 import Layout from '@/components/Layout';
 
