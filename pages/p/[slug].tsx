@@ -1,7 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { Post } from '@prisma/client';
 
-import PostType from '@/types/post';
+import PostType from '@/types/post.type';
 import Layout from '@/components/Layout';
 import { getPostBySlug, getPosts } from '@/lib/posts';
 
