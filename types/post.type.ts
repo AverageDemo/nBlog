@@ -1,4 +1,4 @@
-import type { AuthorType } from './author.type';
+import type AuthorType from './author.type';
 
 type PostType = {
   id: number;

@@ -2,19 +2,23 @@ import moment from 'moment';
 import type { GetStaticProps } from 'next';
 import type { Post } from '@prisma/client';
 
-import type PostType from '@/types/post.type';
 import { getPosts } from '@/lib/posts';
 import Layout from '@/components/Layout';
+import type PostType from '@/types/post.type';
 
 export default function Home({ posts }: Props) {
   return (
     <Layout>
       <ul>
-        {posts.map((post) => (
-          <li key={post.id}>
-            {post.title} by {post.author.username} on {moment(post.createdAt).format('MMMM Do YYYY')}
-          </li>
-        ))}
+        {posts.length ? (
+          posts.map((post) => (
+            <li key={post.id}>
+              {post.title} by {post.author.username} on {moment(post.createdAt).format('MMMM Do YYYY')}
+            </li>
+          ))
+        ) : (
+          <li>No posts to display</li>
+        )}
       </ul>
     </Layout>
   );
