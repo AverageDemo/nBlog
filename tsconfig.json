@@ -3,6 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@/lib/*": ["lib/*"],
+      "@/dtos/*": ["dtos/*"],
+      "@/enums/*": ["enums/*"],
       "@/types/*": ["types/*"],
       "@/styles/*": ["styles/*"],
       "@/components/*": ["components/*"]

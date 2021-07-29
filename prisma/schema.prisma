@@ -16,7 +16,7 @@ model Post {
   cid       Int
   tags      String[]
   title     String
-  slug      String
+  slug      String   @unique
   content   String?
   published Boolean  @default(false)
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -31,7 +31,7 @@ model User {
   username  String   @unique
   email     String   @unique
   password  String
-  usergroup Int      @default(0) // Implement this at a later time.
+  role      Role     @default(GUEST) // Implement this at a later time.
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   posts     Post[]
@@ -45,4 +45,10 @@ model Category {
   posts Post[]
 
   @@map(name: "categories")
+}
+
+enum Role {
+  ADMIN
+  AUTHOR
+  GUEST
 }

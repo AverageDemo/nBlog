@@ -11,7 +11,7 @@ export const getUser = async (email: string): Promise<UserData | null> => {
       firstName: true,
       username: true,
       email: true,
-      usergroup: true,
+      role: true,
       password: false,
     },
   });
