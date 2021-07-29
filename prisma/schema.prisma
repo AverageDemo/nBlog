@@ -27,11 +27,11 @@ model Post {
 
 model User {
   id        Int      @id @default(autoincrement())
-  firstName String?
+  firstName String
   username  String   @unique
   email     String   @unique
   password  String
-  usergroup String // Implement this at a later time.
+  usergroup Int      @default(0) // Implement this at a later time.
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
   posts     Post[]

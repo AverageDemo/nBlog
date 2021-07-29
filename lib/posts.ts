@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
-import { Post, PrismaClient } from '@prisma/client';
+import { Post } from '@prisma/client';
 
-export const getPosts = async (slug?: string, published: boolean = true) => {
+export const getPosts = async (slug?: string, published: boolean = true): Promise<Post[]> => {
   const posts: Post[] = await prisma.post.findMany({
     where: {
       slug,
