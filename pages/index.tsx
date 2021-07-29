@@ -9,7 +9,13 @@ import type PostType from '@/types/post.type';
 export default function Home({ posts }: Props) {
   return (
     <Layout>
-      <ul>
+      <div className="pt-6 pb-8 space-y-2 md:space-y-5">
+        <h1 className="text-3xl font-bold text-gray-900 tracking-tight sm:text-4rem md:text-6xl md:leading-10">
+          Latest
+        </h1>
+        <p className="text-lg text-gray-500">All the latest posts</p>
+      </div>
+      <ul className="divide-y divide-gray-200">
         {posts.length ? (
           posts.map((post) => (
             <li key={post.id}>

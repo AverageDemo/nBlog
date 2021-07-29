@@ -1,21 +1,20 @@
 import { useRouter } from 'next/router';
 
-import Header from './Header';
+import Head from './Head';
 import Body from './Body';
-import Footer from './Footer';
-import styles from '@/styles/Home.module.css';
+import Navbar from './Navbar';
 
 export default function Layout({ children }: Props) {
   const router = useRouter();
 
   return (
-    <div className={styles.container}>
-      <Header />
+    <>
+      <Head />
+
+      <Navbar />
 
       <Body>{children}</Body>
-
-      <Footer />
-    </div>
+    </>
   );
 }
 

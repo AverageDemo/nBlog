@@ -24,12 +24,17 @@
     "superjson": "^1.7.4"
   },
   "devDependencies": {
+    "@headlessui/react": "^1.3.0",
+    "@heroicons/react": "^1.0.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "15.12.2",
     "@types/react": "17.0.15",
+    "autoprefixer": "^10.3.1",
     "babel-plugin-superjson-next": "^0.3.0",
     "eslint": "7.31.0",
     "eslint-config-next": "11.0.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7",
     "typescript": "4.3.5"
   }
 }
