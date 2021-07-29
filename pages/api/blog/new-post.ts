@@ -11,7 +11,7 @@ import type UserData from '@/types/user-data.type';
 
 type ResponseData = {
   message?: string;
-  post?: Post | null;
+  post?: object | Post | null;
 };
 
 const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
@@ -33,7 +33,7 @@ const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
           });
         newPostDto.slug = slugify(newPostDto.title).toLowerCase();
 
-        const createdPost: Post | null = await createPost(newPostDto);
+        const createdPost: object | Post | null = await createPost(newPostDto);
 
         res.status(200).json({ post: createdPost });
       } else {

@@ -42,7 +42,7 @@ export default function Home({ posts }: Props) {
                     </div>
                   </div>
                   <div className="text-base font-medium">
-                    <Link href="#">
+                    <Link href={`/p/${post.slug}`}>
                       <a className="text-teal-600 hover:text-teal-700" aria-label={`Read "${post.title}"`}>
                         Read more &rarr;
                       </a>
