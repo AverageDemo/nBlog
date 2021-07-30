@@ -35,16 +35,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (post && post.content) {
     content = await remark().use(html).process(post.content);
-    content = content.toString();
+    post.content = content.toString();
   }
 
   return {
-    props: {
-      post: {
-        ...post,
-        mdxContent: content,
-      },
-    },
+    props: { post },
   };
 };
 

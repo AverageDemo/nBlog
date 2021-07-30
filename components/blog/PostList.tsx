@@ -15,7 +15,7 @@ export default function PostList({ posts }: Props) {
                   <time dateTime="2021-06-17T14:00:00.000Z">{moment(post.createdAt).format('MMMM Do, YYYY')}</time>
                 </dd>
                 <dt className="sr-only">By</dt>
-                <dd className="text-base font-small text-gray-500">By {post.author.username}</dd>
+                <dd className="text-base font-small text-gray-500">By {post.author.firstName}</dd>
               </dl>
               <div className="space-y-5 xl:col-span-3">
                 <div className="space-y-6">
@@ -28,13 +28,15 @@ export default function PostList({ posts }: Props) {
                     <div dangerouslySetInnerHTML={{ __html: post.content }} />
                   </div>
                 </div>
-                <div className="text-base font-medium">
-                  <Link href={`/p/${post.slug}`}>
-                    <a className="text-teal-600 hover:text-teal-700" aria-label={`Read "${post.title}"`}>
-                      Read more &rarr;
-                    </a>
-                  </Link>
-                </div>
+                {post.content.length > 400 && (
+                  <div className="text-base font-medium">
+                    <Link href={`/p/${post.slug}`}>
+                      <a className="text-green-600 hover:text-green-700" aria-label={`Read "${post.title}"`}>
+                        Read more &rarr;
+                      </a>
+                    </Link>
+                  </div>
+                )}
                 <div>
                   {post.tags.map((tag) => (
                     <Link key={tag} href={`/t/${tag}`}>
