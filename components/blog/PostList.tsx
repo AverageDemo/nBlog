@@ -29,8 +29,8 @@ export default function PostList({ posts }: Props) {
                       <a className="text-gray-900">{post.title}</a>
                     </Link>
                   </h2>
-                  <div className="max-w-none text-gray-500">
-                    <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                  <div className="prose lg:prose-xl max-w-none text-gray-500">
+                    <div className="prose lg:prose-xl" dangerouslySetInnerHTML={{ __html: post.content }} />
                   </div>
                 </div>
                 {post.content.length > 400 && (

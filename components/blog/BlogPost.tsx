@@ -65,7 +65,7 @@ export default function BlogPost({ children }: Props) {
         </dl>
 
         <div
-          className="xl:pb-0 xl:col-span-3 xl:row-span-2 pt-8"
+          className="prose lg:prose-xl xl:pb-0 xl:col-span-3 xl:row-span-2 pt-8"
           dangerouslySetInnerHTML={{ __html: children.content }}
         />
       </div>
