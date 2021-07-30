@@ -12,8 +12,8 @@ export default function Home({ post }: Props) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts: Post[] = await getPosts();
 
-  const paths = posts.map((posts) => ({
-    params: { slug: posts.slug },
+  const paths = posts.map((post) => ({
+    params: { slug: post.slug },
   }));
 
   return { paths, fallback: false };

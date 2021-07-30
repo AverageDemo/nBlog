@@ -8,6 +8,7 @@ type PostType = {
   content: string;
   createdAt: number;
   published: boolean;
+  tags: string[];
 };
 
 export default PostType;

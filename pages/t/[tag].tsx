@@ -1,20 +1,21 @@
 import Link from 'next/link';
-import type { GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps } from 'next';
+
 import moment from 'moment';
 import type { Post } from '@prisma/client';
 
-import { getPosts } from '@/lib/posts';
 import Layout from '@/components/Layout';
 import type PostType from '@/types/post.type';
+import { getPosts, getPostsByTag } from '@/lib/posts';
 
-export default function Home({ posts }: Props) {
+export default function Home({ tag, posts }: Props) {
   return (
     <Layout>
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
         <h1 className="text-3xl font-bold text-gray-900 tracking-tight sm:text-4rem md:text-7xl md:leading-10">
-          Latest
+          {tag}
         </h1>
-        <p className="text-lg pt-4 text-gray-500">All the latest posts</p>
+        <p className="text-lg pt-4 text-gray-500">Viewing all posts for tag &apos;{tag}&apos;</p>
       </div>
       <ul className="divide-y divide-gray-200">
         {posts.length ? (
@@ -73,14 +74,37 @@ export default function Home({ posts }: Props) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  let tags: string[] = [];
+
   const posts: Post[] = await getPosts();
 
+  // Merge all posts tags into one array
+  posts.forEach((post) => {
+    tags = [...tags, ...post.tags];
+  });
+
+  // Remove duplicate tags
+  tags = Array.from(new Set(tags));
+
+  const paths = tags.map((tag) => ({
+    params: { tag },
+  }));
+
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { tag } = params as { tag: string };
+
+  const posts = await getPostsByTag(tag);
+
   return {
-    props: { posts },
+    props: { tag, posts },
   };
 };
 
 type Props = {
+  tag: string;
   posts: PostType[];
 };
