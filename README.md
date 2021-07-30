@@ -28,7 +28,7 @@ yarn
 yarn run build && yarn run start
 ```
 
-## Run tests
+## Development usage
 
 ```sh
 yarn lint && yarn dev
