@@ -26,6 +26,8 @@ const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
         newPostDto.authorId = user.id;
         newPostDto.cid = Number(newPostDto.cid);
+
+        // Tags are input as a comma delimited string. Split them and remove whitespace
         newPostDto.tags = String(newPostDto.tags)
           .split(',')
           .map((tag) => {
@@ -35,6 +37,7 @@ const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
 
         const createdPost: object | Post | null = await createPost(newPostDto);
 
+        // TODO: Return the slug to be able to allow redirect. Will implement once the new post form is created
         res.status(200).json({ post: createdPost });
       } else {
         res.status(401).json({ message: 'Unauthorized' });

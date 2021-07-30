@@ -79,13 +79,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const posts: Post[] = await getPosts();
 
-  // Merge all posts tags into one array
+  // Merge all post tags into one UNIQUE array
   posts.forEach((post) => {
-    tags = [...tags, ...post.tags];
+    tags = Array.from(new Set([...tags, ...post.tags]));
   });
-
-  // Remove duplicate tags
-  tags = Array.from(new Set(tags));
 
   const paths = tags.map((tag) => ({
     params: { tag },

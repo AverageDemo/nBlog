@@ -50,14 +50,7 @@ export const getPostsByTag = async (tag: string): Promise<Post[]> => {
 export const createPost = async (newPostDto: NewPostDto): Promise<Post | object | null> => {
   try {
     const post: Post = await prisma.post.create({
-      data: {
-        cid: newPostDto.cid,
-        tags: newPostDto.tags,
-        title: newPostDto.title,
-        slug: newPostDto.slug,
-        content: newPostDto.content,
-        authorId: newPostDto.authorId,
-      },
+      data: newPostDto,
     });
 
     if (post) return post;
