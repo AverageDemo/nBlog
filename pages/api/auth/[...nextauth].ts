@@ -6,6 +6,16 @@ import { compareSync } from 'bcryptjs';
 import prisma from '@/lib/prisma';
 
 export default NextAuth({
+  pages: {
+    signIn: '/login',
+    newUser: '/dashboard',
+    error: '/login',
+  },
+  callbacks: {
+    async redirect(url, baseUrl) {
+      return baseUrl;
+    },
+  },
   providers: [
     Providers.Credentials({
       name: 'Credentials',
@@ -16,9 +26,12 @@ export default NextAuth({
       async authorize(credentials, req) {
         const { username, password } = credentials;
 
-        const user = await prisma.user.findUnique({
+        const user = await prisma.user.findFirst({
           where: {
-            username,
+            username: {
+              equals: username,
+              mode: 'insensitive',
+            },
           },
         });
 

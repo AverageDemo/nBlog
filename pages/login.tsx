@@ -1,6 +1,31 @@
 import Header from '@/components/Header';
+import { GetServerSideProps } from 'next';
+import { getCsrfToken, getSession, signIn } from 'next-auth/client';
+import React, { useState } from 'react';
 
-export default function LoginPage() {
+export default function LoginPage({ csrfToken }: Props) {
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: '',
+  });
+
+  const handleInputChange = (e: React.FormEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const hasEmptyFields = Object.values(credentials).some((element) => element === '');
+
+    if (hasEmptyFields) {
+      // TODO: handle error
+      return;
+    }
+    signIn('credentials', { username: credentials.username, password: credentials.password });
+  };
+
   return (
     <div>
       <Header />
@@ -11,7 +36,8 @@ export default function LoginPage() {
 
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">
                   Username
@@ -22,6 +48,7 @@ export default function LoginPage() {
                     name="username"
                     type="text"
                     autoComplete="username"
+                    onChange={handleInputChange}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -38,6 +65,7 @@ export default function LoginPage() {
                     name="password"
                     type="password"
                     autoComplete="current-password"
+                    onChange={handleInputChange}
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -74,3 +102,26 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const session = await getSession(ctx);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      csrfToken: await getCsrfToken(ctx),
+    },
+  };
+};
+
+type Props = {
+  csrfToken: string;
+};
