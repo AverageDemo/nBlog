@@ -15,7 +15,12 @@ export default function PostList({ posts }: Props) {
                   <time dateTime="2021-06-17T14:00:00.000Z">{moment(post.createdAt).format('MMMM Do, YYYY')}</time>
                 </dd>
                 <dt className="sr-only">By</dt>
-                <dd className="text-base font-small text-gray-500">By {post.author.firstName}</dd>
+                <dd className="text-base font-small text-gray-500">
+                  By{' '}
+                  <Link href={`/u/${String(post.author.username).toLowerCase()}`}>
+                    <a>{post.author.firstName}</a>
+                  </Link>
+                </dd>
               </dl>
               <div className="space-y-5 xl:col-span-3">
                 <div className="space-y-6">

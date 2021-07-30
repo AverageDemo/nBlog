@@ -47,7 +47,7 @@ export default function BlogPost({ children }: Props) {
                   <dd className="text-gray-900">{children.author.firstName}</dd>
                   <dt className="sr-only">Username</dt>
                   <dd>
-                    <Link href={`/u/${children.author.username}`}>
+                    <Link href={`/u/${children.author.username.toLowerCase()}`}>
                       <a className="text-green-600 hover:text-green-700">{`@${children.author.username}`}</a>
                     </Link>
                   </dd>
