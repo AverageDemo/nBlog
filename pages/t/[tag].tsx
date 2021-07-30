@@ -1,5 +1,7 @@
 import type { GetStaticPaths, GetStaticProps } from 'next';
 import type { Post } from '@prisma/client';
+import remark from 'remark';
+import html from 'remark-html';
 
 import Layout from '@/components/Layout';
 import type PostType from '@/types/post.type';
@@ -41,6 +43,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { tag } = params as { tag: string };
 
   const posts = await getPostsByTag(tag);
+
+  posts.map(async (post) => {
+    let mdxContentV = await remark().use(html).process(post.content);
+    let mdxContent = mdxContentV.toString();
+    if (mdxContent.length > 400) mdxContent = mdxContent.substr(0, 400).concat('...');
+
+    post.content = mdxContent;
+  });
 
   return {
     props: { tag, posts },
