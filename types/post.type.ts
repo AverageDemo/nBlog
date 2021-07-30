@@ -6,6 +6,7 @@ type PostType = {
   slug: string;
   author: AuthorType;
   content: string;
+  mdxContent?: string;
   createdAt: number;
   published: boolean;
   tags: string[];

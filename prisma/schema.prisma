@@ -17,7 +17,7 @@ model Post {
   tags      String[]
   title     String
   slug      String   @unique
-  content   String?
+  content   String?  @db.Text
   published Boolean  @default(false)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")

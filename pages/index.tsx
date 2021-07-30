@@ -32,9 +32,9 @@ export default function Home({ posts }: Props) {
                 <div className="space-y-5 xl:col-span-3">
                   <div className="space-y-6">
                     <h2 className="text-2xl font-bold tracking-tight">
-                      <a className="text-gray-900" href="/tailwindcss-2-2">
-                        {post.title}
-                      </a>
+                      <Link href={`/p/${post.slug}`}>
+                        <a className="text-gray-900">{post.title}</a>
+                      </Link>
                     </h2>
                     <div className="max-w-none text-gray-500">
                       <p>
