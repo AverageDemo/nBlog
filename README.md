@@ -16,6 +16,8 @@
 
 ### 🏠 [Homepage](https://github.com/AverageDemo/nBlog#readme)
 
+![nblog-demo](https://user-images.githubusercontent.com/46252711/127610884-ea125faa-a2f0-4709-a9e4-2daeb0f0aaaf.png)
+
 ## Install
 
 ```sh
