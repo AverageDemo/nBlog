@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
-import Head from './Head';
 import Body from './Body';
+import Header from './Header';
 import Navbar from './Navbar';
 
 export default function Layout({ children }: Props) {
@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
 
   return (
     <>
-      <Head />
+      <Header />
 
       <Navbar />
 
