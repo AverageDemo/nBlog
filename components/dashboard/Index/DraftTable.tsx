@@ -13,6 +13,7 @@ import {
 
 import { classNames } from '@/lib/utils';
 import type PostType from '@/types/post.type';
+import { navigation } from '@/lib/navigation';
 
 export default function DashboardDraftTable({ drafts }: Props) {
   return (
@@ -24,15 +25,25 @@ export default function DashboardDraftTable({ drafts }: Props) {
         <ul className="mt-3 border-t border-gray-200 divide-y divide-gray-100">
           {drafts.map((draft) => (
             <li key={draft.id}>
-              <a href="#" className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
-                <span className="flex items-center truncate space-x-3">
-                  <span className="bg-pink-600 w-2.5 h-2.5 flex-shrink-0 rounded-full" aria-hidden="true" />
-                  <span className="font-medium truncate text-sm leading-6">
-                    {draft.title} <span className="truncate font-normal text-gray-500">in {draft.category.name}</span>
+              <Link
+                href={{
+                  pathname: navigation.dashboard.viewPost.href,
+                  query: { slug: draft.slug },
+                }}
+              >
+                <a className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
+                  <span className="flex items-center truncate space-x-3">
+                    <span className="bg-pink-600 w-2.5 h-2.5 flex-shrink-0 rounded-full" aria-hidden="true" />
+                    <span className="font-medium truncate text-sm leading-6">
+                      {draft.title} <span className="truncate font-normal text-gray-500">in {draft.category.name}</span>
+                    </span>
                   </span>
-                </span>
-                <ChevronRightIcon className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-              </a>
+                  <ChevronRightIcon
+                    className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -61,11 +72,18 @@ export default function DashboardDraftTable({ drafts }: Props) {
                   <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                     <div className="flex items-center space-x-3 lg:pl-2">
                       <div className="bg-pink-600  flex-shrink-0 w-2.5 h-2.5 rounded-full" aria-hidden="true" />
-                      <a href="#" className="truncate hover:text-gray-600">
-                        <span>
-                          {draft.title} <span className="text-gray-500 font-normal">in {draft.category.name}</span>
-                        </span>
-                      </a>
+                      <Link
+                        href={{
+                          pathname: navigation.dashboard.viewPost.href,
+                          query: { slug: draft.slug },
+                        }}
+                      >
+                        <a className="truncate hover:text-gray-600">
+                          <span>
+                            {draft.title} <span className="text-gray-500 font-normal">in {draft.category.name}</span>
+                          </span>
+                        </a>
+                      </Link>
                     </div>
                   </td>
                   <td className="px-6 py-3 text-sm text-gray-500 font-medium">

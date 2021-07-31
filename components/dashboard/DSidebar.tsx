@@ -2,24 +2,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import gravatar from 'gravatar';
 import { Session } from 'next-auth';
+import { useRouter } from 'next/router';
 import { Fragment, useState } from 'react';
 import { signOut } from 'next-auth/client';
 import { Dialog, Menu, Transition } from '@headlessui/react';
+import { MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
 import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
-import { MenuAlt1Icon, LibraryIcon, HomeIcon, CollectionIcon, XIcon, DocumentAddIcon } from '@heroicons/react/outline';
 
 import { classNames } from '@/lib/utils';
+import { navigation } from '@/lib/navigation';
 import DHeader from '@/components/dashboard/DHeader';
-
-const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
-  { name: 'Published Posts', href: '/dashboard/p/published', icon: CollectionIcon, current: false },
-  { name: 'Drafts', href: '/dashboard/p/drafts', icon: LibraryIcon, current: false },
-  { name: 'New Post', href: '/dashboard/p/new', icon: DocumentAddIcon, current: false },
-];
 
 export default function DashboardSidebar({ tags, session, title, children }: Props) {
   const [showSidebar, setShowSidebar] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -72,7 +68,7 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4 h-8 w-auto">
-                <Link href="/">
+                <Link href={navigation.baseUrl.href}>
                   <a className="text-4xl font-semibold text-blue-400">nBlog</a>
                 </Link>
                 {/* LOGO
@@ -87,27 +83,29 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2">
                   <div className="space-y-1">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
-                          'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        <item.icon
+                    {Object.values(navigation.dashboard.sidebar).map((item) => (
+                      <Link key={item.name} href={item.href}>
+                        <a
                           className={classNames(
-                            item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-3 flex-shrink-0 h-6 w-6'
+                            router.pathname === item.href
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                            'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
                           )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
+                          aria-current={router.pathname === item.href ? 'page' : undefined}
+                        >
+                          <item.icon
+                            className={classNames(
+                              router.pathname === item.href
+                                ? 'text-gray-500'
+                                : 'text-gray-400 group-hover:text-gray-500',
+                              'mr-3 flex-shrink-0 h-6 w-6'
+                            )}
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </div>
                   <div className="mt-8">
@@ -147,7 +145,7 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
           <div className="flex items-center flex-shrink-0 px-6 h-8 w-auto">
-            <Link href="/">
+            <Link href={navigation.baseUrl.href}>
               <a className="text-4xl font-semibold text-blue-400">nBlog</a>
             </Link>
             {/* LOGO
@@ -274,19 +272,21 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
             {/* Navigation */}
             <nav className="px-3 mt-6">
               <div className="space-y-1">
-                {navigation.map((item) => (
+                {Object.values(navigation.dashboard.sidebar).map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                      router.pathname === item.href
+                        ? 'bg-gray-200 text-gray-900'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={router.pathname === item.href ? 'page' : undefined}
                   >
                     <item.icon
                       className={classNames(
-                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                        router.pathname === item.href ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
                         'mr-3 flex-shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"

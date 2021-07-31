@@ -34,5 +34,5 @@ export default function DashboardLayout({ tags, title, children }: Props) {
 type Props = {
   tags?: string[];
   title?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };

@@ -4,6 +4,7 @@ import moment from 'moment';
 import gravatar from 'gravatar';
 
 import type PostType from '@/types/post.type';
+import { navigation } from '@/lib/navigation';
 
 export default function BlogPost({ children }: Props) {
   return (
@@ -77,7 +78,7 @@ export default function BlogPost({ children }: Props) {
               </li>
               <li className="flex items-center space-x-2">
                 <div className="pt-8">
-                  <Link href="/">
+                  <Link href={navigation.baseUrl.href}>
                     <a className="text-blue-400 hover:text-blue-500">&larr; Back to the blog</a>
                   </Link>
                 </div>

@@ -6,6 +6,8 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { signIn, signOut, useSession } from 'next-auth/client';
 
+import { navigation } from '@/lib/navigation';
+
 export default function Navbar() {
   const [session, loading] = useSession();
 
@@ -13,7 +15,7 @@ export default function Navbar() {
     <div className="container max-w-3xl mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <header className="flex justify-between items-center py-10">
         <div>
-          <Link href="/">
+          <Link href={navigation.baseUrl.href}>
             <a aria-label="nBlog">
               {/* Your logo should go here */}
               <div className="text-4xl font-semibold text-blue-400">nBlog</div>
@@ -73,15 +75,19 @@ export default function Navbar() {
                       >
                         <Menu.Item>
                           {({ active }) => (
-                            <Link href="/dashboard">
-                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">Dashboard</a>
+                            <Link href={navigation.navbar.dashboard.href}>
+                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">
+                                {navigation.navbar.dashboard.name}
+                              </a>
                             </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <Link href="#">
-                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">Settings</a>
+                            <Link href={navigation.navbar.settings.href}>
+                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">
+                                {navigation.navbar.settings.name}
+                              </a>
                             </Link>
                           )}
                         </Menu.Item>

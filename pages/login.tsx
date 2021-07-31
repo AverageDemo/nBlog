@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import { getCsrfToken, getSession, signIn } from 'next-auth/client';
 
 import Header from '@/components/Header';
+import { navigation } from '@/lib/navigation';
 
 export default function LoginPage({ csrfToken }: Props) {
   const [credentials, setCredentials] = useState({
@@ -76,7 +77,7 @@ export default function LoginPage({ csrfToken }: Props) {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm">
-                  <Link href="/">
+                  <Link href={navigation.baseUrl.href}>
                     <a className="font-medium text-indigo-600 hover:text-indigo-500">&larr; Back to the blog</a>
                   </Link>
                 </div>
