@@ -71,7 +71,9 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4 h-8 w-auto">
-                <div className="text-4xl font-semibold text-blue-400">nBlog</div>
+                <Link href="/">
+                  <a className="text-4xl font-semibold text-blue-400">nBlog</a>
+                </Link>
                 {/* LOGO
                   <Image
                   layout="intrinsic"
@@ -138,7 +140,9 @@ export default function DashboardSidebar({ tags, session, title, children }: Pro
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
           <div className="flex items-center flex-shrink-0 px-6 h-8 w-auto">
-            <div className="text-4xl font-semibold text-blue-400">nBlog</div>
+            <Link href="/">
+              <a className="text-4xl font-semibold text-blue-400">nBlog</a>
+            </Link>
             {/* LOGO
               <Image
               src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"
