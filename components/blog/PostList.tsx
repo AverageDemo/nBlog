@@ -17,7 +17,12 @@ export default function PostList({ posts }: Props) {
                 <dt className="sr-only">By</dt>
                 <dd className="text-base font-small text-gray-500">
                   By{' '}
-                  <Link href={`/u/${String(post.author.username).toLowerCase()}`}>
+                  <Link
+                    href={{
+                      pathname: '/u/[user]',
+                      query: { user: String(post.author.username).toLowerCase() },
+                    }}
+                  >
                     <a>{post.author.name}</a>
                   </Link>
                 </dd>
@@ -25,7 +30,12 @@ export default function PostList({ posts }: Props) {
               <div className="space-y-5 xl:col-span-3">
                 <div className="space-y-6">
                   <h2 className="text-2xl font-bold tracking-tight">
-                    <Link href={`/p/${post.slug}`}>
+                    <Link
+                      href={{
+                        pathname: '/p/[slug]',
+                        query: { slug: post.slug },
+                      }}
+                    >
                       <a className="text-gray-900">{post.title}</a>
                     </Link>
                   </h2>
@@ -35,7 +45,12 @@ export default function PostList({ posts }: Props) {
                 </div>
                 {post.content.length > 400 && (
                   <div className="text-base font-medium">
-                    <Link href={`/p/${post.slug}`}>
+                    <Link
+                      href={{
+                        pathname: '/p/[slug]',
+                        query: { slug: post.slug },
+                      }}
+                    >
                       <a className="text-blue-400 hover:text-blue-500" aria-label={`Read "${post.title}"`}>
                         Read more &rarr;
                       </a>
@@ -44,7 +59,13 @@ export default function PostList({ posts }: Props) {
                 )}
                 <div>
                   {post.tags.map((tag) => (
-                    <Link key={tag} href={`/t/${tag}`}>
+                    <Link
+                      key={tag}
+                      href={{
+                        pathname: '/t/[tag]',
+                        query: { tag },
+                      }}
+                    >
                       <a>
                         <span className="inline-flex items-center px-2.5 py-0.5 mr-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                           {tag}

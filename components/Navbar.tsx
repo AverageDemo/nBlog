@@ -77,36 +77,21 @@ export default function Navbar() {
                       >
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              <Link href="/dashboard">Dashboard</Link>
-                            </a>
+                            <Link href="/dashboard">
+                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">Dashboard</a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              <Link href="#">Settings</Link>
-                            </a>
+                            <Link href="#">
+                              <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">Settings</a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
+                            <a className="hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700">
                               <button onClick={() => signOut()}>Logout</button>
                             </a>
                           )}

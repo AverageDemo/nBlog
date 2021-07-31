@@ -26,7 +26,13 @@ export default function BlogPost({ children }: Props) {
             </h1>
             <div className="pt-6">
               {children.tags.map((tag) => (
-                <Link key={tag} href={`/t/${tag}`}>
+                <Link
+                  key={tag}
+                  href={{
+                    pathname: '/t/[tag]',
+                    query: { tag },
+                  }}
+                >
                   <a>
                     <span className="inline-flex items-center px-2.5 py-0.5 mr-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                       {tag}
@@ -58,7 +64,12 @@ export default function BlogPost({ children }: Props) {
                   <dd className="text-gray-900">{children.author.name}</dd>
                   <dt className="sr-only">Username</dt>
                   <dd>
-                    <Link href={`/u/${children.author.username.toLowerCase()}`}>
+                    <Link
+                      href={{
+                        pathname: '/u/[user]',
+                        query: { user: children.author.username.toLowerCase() },
+                      }}
+                    >
                       <a className="text-blue-400 hover:text-blue-500">{`@${children.author.username}`}</a>
                     </Link>
                   </dd>
