@@ -1,4 +1,3 @@
-// TODO: Implement custom signin page
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 import { compareSync } from 'bcryptjs';

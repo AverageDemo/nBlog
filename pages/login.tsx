@@ -22,7 +22,7 @@ export default function LoginPage({ csrfToken }: Props) {
     const hasEmptyFields = Object.values(credentials).some((element) => element === '');
 
     if (hasEmptyFields) {
-      // TODO: handle error
+      // TODO: handle error with toast
       return;
     }
     signIn('credentials', { username: credentials.username, password: credentials.password });
