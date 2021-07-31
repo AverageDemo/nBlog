@@ -1,15 +1,34 @@
-import { Editor } from '@tinymce/tinymce-react';
+import type { Session } from 'next-auth';
 import type { MutableRefObject } from 'react';
-import { FormEvent, useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import { FormEvent, useRef, useState } from 'react';
 
-export default function NewPost() {
+export default function NewPost({ session }: Props) {
+  const [values, setValues] = useState({
+    title: 'Test', // Change this later
+    content: '',
+    tags: 'test, tags', // Change this later
+    cid: 1, // Change this later
+    authorId: 1, // Change this later
+  });
   const editorRef: MutableRefObject<null> = useRef(null);
+
+  const handleInputChange = (e: React.FormEvent) => {
+    const { name, value } = e.target as HTMLInputElement;
+    setValues({ ...values, [name]: value });
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+    const hasEmptyFields = Object.values(values).some((element) => element === '');
+
+    if (hasEmptyFields) {
+      // TODO: handle error with toast
+      return;
     }
+
+    console.log(values);
   };
 
   return (
@@ -18,10 +37,27 @@ export default function NewPost() {
         <div>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div className="sm:col-span-6">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                Title
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="title"
+                  id="title"
+                  onChange={handleInputChange}
+                  autoComplete="title"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
               <div className="mt-1">
                 <Editor
+                  onEditorChange={(newValue, editor) => setValues({ ...values, content: newValue })}
+                  textareaName="content"
                   onInit={(evt, editor) => (editorRef.current = editor)}
-                  initialValue="<p>This is the initial content of the editor.</p>"
                   init={{
                     height: 500,
                     menubar: false,
@@ -107,3 +143,7 @@ export default function NewPost() {
     </form>
   );
 }
+
+type Props = {
+  session: Session | null;
+};

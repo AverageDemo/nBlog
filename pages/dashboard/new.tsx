@@ -1,15 +1,18 @@
 import type { Post } from '@prisma/client';
 import type { GetStaticProps } from 'next';
+import { useSession } from 'next-auth/client';
 
 import { getAllPosts } from '@/lib/posts';
 import DashboardLayout from '@/components/dashboard/DLayout';
 import NewPost from '@/components/dashboard/Posts/NewPost';
 
 export default function DashboardNewPostPage({ tags }: Props) {
+  const [session, loading] = useSession();
+
   return (
     <DashboardLayout title="New Post" tags={tags}>
       <div className="px-4 mt-6 sm:px-6 lg:px-8">
-        <NewPost />
+        <NewPost session={session} />
       </div>
     </DashboardLayout>
   );
