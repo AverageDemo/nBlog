@@ -20,21 +20,22 @@
 
 ## Install
 
+See the .env.example file
+
 ```sh
+npx prisma db push
 yarn
 ```
 
 ## Usage
 
 ```sh
-npx prisma db push
 yarn run build && yarn run start
 ```
 
 ## Development usage
 
 ```sh
-npx prisma db push
 yarn lint && yarn dev
 ```
 
