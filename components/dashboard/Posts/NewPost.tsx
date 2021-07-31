@@ -82,11 +82,10 @@ export default function NewPost({ categories, session }: Props) {
                   name="published"
                   autoComplete="published"
                   onChange={handleInputChange}
+                  defaultValue="false"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 >
-                  <option value="false" selected>
-                    False
-                  </option>
+                  <option value="false">False</option>
                   <option value="true">True</option>
                 </select>
               </div>

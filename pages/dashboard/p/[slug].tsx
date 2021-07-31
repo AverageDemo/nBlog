@@ -1,3 +1,3 @@
 export default function DashboardPostPage() {
-  return <div>test</div>;
+  return <div>Post editing</div>;
 }
