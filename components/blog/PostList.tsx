@@ -18,7 +18,7 @@ export default function PostList({ posts }: Props) {
                 <dd className="text-base font-small text-gray-500">
                   By{' '}
                   <Link href={`/u/${String(post.author.username).toLowerCase()}`}>
-                    <a>{post.author.firstName}</a>
+                    <a>{post.author.name}</a>
                   </Link>
                 </dd>
               </dl>

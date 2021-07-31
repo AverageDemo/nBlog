@@ -37,11 +37,11 @@ export default NextAuth({
 
         if (user) {
           if (compareSync(password, user.password)) {
-            const { firstName, username, email } = user;
+            const { name, username, email } = user;
 
             const userObj: UserData = {
               id: username,
-              name: firstName,
+              name,
               email,
             };
 

@@ -11,7 +11,7 @@ export const getPosts = async (slug?: string, published: boolean = true): Promis
       published,
     },
     include: {
-      author: { select: { username: true, firstName: true } },
+      author: { select: { username: true, name: true } },
     },
     orderBy: {
       createdAt: 'desc',
@@ -27,7 +27,7 @@ export const getPostBySlug = async (slug: string) => {
       slug,
     },
     include: {
-      author: { select: { username: true, email: true, firstName: true } },
+      author: { select: { username: true, email: true, name: true } },
     },
   });
 
@@ -43,7 +43,7 @@ export const getPostsByTag = async (tag: string): Promise<Post[]> => {
       published: true,
     },
     include: {
-      author: { select: { username: true, firstName: true } },
+      author: { select: { username: true, name: true } },
     },
     orderBy: {
       createdAt: 'desc',

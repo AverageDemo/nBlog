@@ -1,6 +1,6 @@
 type AuthorType = {
   username: string;
-  firstName: string;
+  name: string;
   email: string;
 };
 

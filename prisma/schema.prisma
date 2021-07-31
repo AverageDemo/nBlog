@@ -27,7 +27,7 @@ model Post {
 
 model User {
   id        Int      @id @default(autoincrement())
-  firstName String
+  name      String
   username  String   @unique
   email     String   @unique
   password  String

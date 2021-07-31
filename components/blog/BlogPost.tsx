@@ -44,7 +44,7 @@ export default function BlogPost({ children }: Props) {
                 </div>
                 <dl className="text-sm font-medium whitespace-no-wrap">
                   <dt className="sr-only">Name</dt>
-                  <dd className="text-gray-900">{children.author.firstName}</dd>
+                  <dd className="text-gray-900">{children.author.name}</dd>
                   <dt className="sr-only">Username</dt>
                   <dd>
                     <Link href={`/u/${children.author.username.toLowerCase()}`}>
