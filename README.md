@@ -27,12 +27,14 @@ yarn
 ## Usage
 
 ```sh
+npx prisma db push
 yarn run build && yarn run start
 ```
 
 ## Development usage
 
 ```sh
+npx prisma db push
 yarn lint && yarn dev
 ```
 
@@ -40,11 +42,11 @@ yarn lint && yarn dev
 
 👤 **AverageDemo**
 
-* Github: [@AverageDemo](https://github.com/AverageDemo)
+- Github: [@AverageDemo](https://github.com/AverageDemo)
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/AverageDemo/nBlog/issues). 
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/AverageDemo/nBlog/issues).
 
 ## Show your support
 
@@ -55,5 +57,6 @@ Give a ⭐️ if this project helped you!
 Copyright © 2021 [AverageDemo](https://github.com/AverageDemo).<br />
 This project is [MIT](https://github.com/AverageDemo/nBlog/blob/master/LICENSE) licensed.
 
-***
+---
+
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
