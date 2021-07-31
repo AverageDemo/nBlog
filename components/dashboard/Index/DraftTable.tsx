@@ -48,10 +48,10 @@ export default function DashboardDraftTable({ drafts }: Props) {
                   <span className="lg:pl-2">Draft</span>
                 </th>
                 <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Members
+                  Tags
                 </th>
                 <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Last updated
+                  Created
                 </th>
                 <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
               </tr>
@@ -67,7 +67,7 @@ export default function DashboardDraftTable({ drafts }: Props) {
                       />
                       <a href="#" className="truncate hover:text-gray-600">
                         <span>
-                          {draft.title} <span className="text-gray-500 font-normal">in {draft.team}</span>
+                          {draft.title} <span className="text-gray-500 font-normal">in {draft.category}</span>
                         </span>
                       </a>
                     </div>
@@ -75,28 +75,19 @@ export default function DashboardDraftTable({ drafts }: Props) {
                   <td className="px-6 py-3 text-sm text-gray-500 font-medium">
                     <div className="flex items-center space-x-2">
                       <div className="flex flex-shrink-0 -space-x-1">
-                        {draft.members.map((member: any) => (
-                          <span className="h-6 w-6" key={member.handle}>
-                            <Image
-                              layout="intrinsic"
-                              width="48"
-                              height="48"
-                              className="max-w-none rounded-full ring-2 ring-white"
-                              src={member.imageUrl}
-                              alt={member.name}
-                            />
+                        {draft.tags.map((tag: string) => (
+                          <span
+                            key={tag}
+                            className="inline-flex items-center px-2.5 mr-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                          >
+                            {`${tag}`}
                           </span>
                         ))}
                       </div>
-                      {draft.totalMembers > draft.members.length ? (
-                        <span className="flex-shrink-0 text-xs leading-5 font-medium">
-                          +{draft.totalMembers - draft.members.length}
-                        </span>
-                      ) : null}
                     </div>
                   </td>
                   <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                    {draft.lastUpdated}
+                    {draft.created}
                   </td>
                   <td className="pr-6">
                     <Menu as="div" className="relative flex justify-end items-center">
