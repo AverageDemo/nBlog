@@ -16,7 +16,7 @@
 
 ### 🏠 [Homepage](https://github.com/AverageDemo/nBlog#readme)
 
-![nblog-demo](https://user-images.githubusercontent.com/46252711/127723094-e29b9c42-be61-42ce-8c7e-a84df94fbb2e.png)
+![nblog-demo](https://raw.githubusercontent.com/AverageDemo/averagedemo.github.io/master/assets/img/nblog-demo.png)
 
 ## Install
 
