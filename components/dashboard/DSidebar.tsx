@@ -13,7 +13,7 @@ import DHeader from '@/components/dashboard/DHeader';
 
 const navigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'My Posts', href: '#', icon: CollectionIcon, current: false },
+  { name: 'Published Posts', href: '#', icon: CollectionIcon, current: false },
   { name: 'Drafts', href: '#', icon: LibraryIcon, current: false },
 ];
 
