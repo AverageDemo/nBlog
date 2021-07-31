@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import type { Session } from 'next-auth';
-import { Editor } from '@tinymce/tinymce-react';
 import { FormEvent, useRef, useState } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 import { Category } from '@prisma/client';
 
 export default function NewPost({ categories, session }: Props) {
@@ -26,7 +28,7 @@ export default function NewPost({ categories, session }: Props) {
     const hasEmptyFields = Object.values(values).some((element) => element === '');
 
     if (hasEmptyFields) {
-      // TODO: handle error with toast
+      toast.error('Please fill in all fields');
       return;
     }
 
@@ -38,17 +40,19 @@ export default function NewPost({ categories, session }: Props) {
       body: JSON.stringify(values),
     });
 
+    const data = await res.json();
+
     if (!res.ok) {
-      // Toast error
+      toast.error(data.message);
       return;
     } else {
-      const data = await res.json();
       router.push(`/dashboard/p/${data.post.slug}`);
     }
   };
 
   return (
     <form className="space-y-8 divide-y divide-gray-200">
+      <ToastContainer />
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">

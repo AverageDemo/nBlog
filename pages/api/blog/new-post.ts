@@ -9,12 +9,7 @@ import NewPostDto from '@/dtos/new-post.dto';
 import UserRole from '@/enums/user-role.enum';
 import type UserData from '@/types/user-data.type';
 
-type ResponseData = {
-  message?: string;
-  post?: object | Post | null;
-};
-
-const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
+const newPost = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const session = await getSession({ req });
 
@@ -36,11 +31,11 @@ const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
           });
         newPostDto.slug = slugify(newPostDto.title).toLowerCase();
 
-        const createdPost: object | Post | null = await createPost(newPostDto);
+        const createdPost: CreatedPost = await createPost(newPostDto);
 
-        if (!createdPost) return res.status(500).json({ message: 'Something went wrong' });
+        if (createdPost.status !== 200) return res.status(createdPost.status).json({ message: createdPost.message });
 
-        res.status(200).json({ post: createdPost });
+        res.status(200).json({ post: createdPost.post });
       } else {
         res.status(401).json({ message: 'Unauthorized' });
       }
@@ -51,6 +46,12 @@ const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) 
     res.setHeader('Allow', ['POST']);
     res.status(405).json({ message: `Method ${req.method} not allowwed` });
   }
+};
+
+type CreatedPost = {
+  post?: Post | null;
+  status: number;
+  message?: string;
 };
 
 export default newPost;

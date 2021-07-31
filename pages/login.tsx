@@ -1,12 +1,21 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import { getCsrfToken, getSession, signIn } from 'next-auth/client';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { getCsrfToken, getSession, signIn, SignInResponse } from 'next-auth/client';
 
 import Header from '@/components/Header';
 import { navigation } from '@/lib/navigation';
 
 export default function LoginPage({ csrfToken }: Props) {
+  const { error } = useRouter().query;
+
+  useEffect(() => {
+    if (error) toast.error('Invalid credentials');
+  }, [error]);
+
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
@@ -23,14 +32,19 @@ export default function LoginPage({ csrfToken }: Props) {
     const hasEmptyFields = Object.values(credentials).some((element) => element === '');
 
     if (hasEmptyFields) {
-      // TODO: handle error with toast
+      toast.error('Please fill in all fields');
       return;
     }
-    signIn('credentials', { username: credentials.username, password: credentials.password });
+
+    signIn('credentials', {
+      username: credentials.username,
+      password: credentials.password,
+    });
   };
 
   return (
     <div>
+      <ToastContainer />
       <Header />
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">

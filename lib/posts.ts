@@ -69,27 +69,30 @@ export const getPostsByTag = async (tag: string): Promise<Post[]> => {
   return posts;
 };
 
-export const createPost = async (newPostDto: NewPostDto): Promise<Post | object | null> => {
+export const createPost = async (
+  newPostDto: NewPostDto
+): Promise<{ post?: Post; status: number; message?: string }> => {
   try {
     const post: Post = await prisma.post.create({
       data: newPostDto,
     });
 
-    if (post) return post;
+    if (post) return { post, status: 200 };
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === 'P2002') {
-        return {
+        const duplicateError = {
           status: 500,
           message: 'A post with this title already exists',
         };
+        return duplicateError;
       }
     }
 
     console.debug(e.message);
   }
 
-  return null;
+  return { status: 500, message: 'An error has occurred' };
 };
 
 export const getCategories = async () => {
