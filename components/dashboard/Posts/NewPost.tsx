@@ -1,24 +1,26 @@
+import { useRouter } from 'next/router';
 import type { Session } from 'next-auth';
-import type { MutableRefObject } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { FormEvent, useRef, useState } from 'react';
+import { Category } from '@prisma/client';
 
-export default function NewPost({ session }: Props) {
+export default function NewPost({ categories, session }: Props) {
+  const router = useRouter();
   const [values, setValues] = useState({
-    title: 'Test', // Change this later
+    title: '',
     content: '',
-    tags: 'test, tags', // Change this later
-    cid: 1, // Change this later
-    authorId: 1, // Change this later
+    published: 'false',
+    tags: '',
+    cid: '1',
   });
-  const editorRef: MutableRefObject<null> = useRef(null);
+  const editorRef: any = useRef(null);
 
   const handleInputChange = (e: React.FormEvent) => {
     const { name, value } = e.target as HTMLInputElement;
     setValues({ ...values, [name]: value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const hasEmptyFields = Object.values(values).some((element) => element === '');
@@ -28,7 +30,21 @@ export default function NewPost({ session }: Props) {
       return;
     }
 
-    console.log(values);
+    const res = await fetch(`/api/blog/new-post`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    });
+
+    if (!res.ok) {
+      // Toast error
+      return;
+    } else {
+      const data = await res.json();
+      router.push(`/dashboard/p/${data.post.slug}`);
+    }
   };
 
   return (
@@ -47,6 +63,64 @@ export default function NewPost({ session }: Props) {
                   id="title"
                   onChange={handleInputChange}
                   autoComplete="title"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label htmlFor="published" className="block text-sm font-medium text-gray-700">
+                Published
+              </label>
+              <div className="mt-1">
+                <select
+                  id="published"
+                  name="published"
+                  autoComplete="published"
+                  onChange={handleInputChange}
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                >
+                  <option value="false" selected>
+                    False
+                  </option>
+                  <option value="true">True</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label htmlFor="cid" className="block text-sm font-medium text-gray-700">
+                Category
+              </label>
+              <div className="mt-1">
+                <select
+                  id="cid"
+                  name="cid"
+                  autoComplete="cid"
+                  onChange={handleInputChange}
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                >
+                  {categories?.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
+              <label htmlFor="tags" className="block text-sm font-medium text-gray-700">
+                Tags
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="tags"
+                  id="tags"
+                  onChange={handleInputChange}
+                  autoComplete="tags"
+                  placeholder="Command delimiter (eg tag1, tag2, tag3)"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -145,5 +219,6 @@ export default function NewPost({ session }: Props) {
 }
 
 type Props = {
+  categories?: Category[];
   session: Session | null;
 };

@@ -4,6 +4,7 @@ interface NewPostDto {
   title: string;
   content: string;
   authorId: number;
+  published: boolean;
   slug: string;
 }
 

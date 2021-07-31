@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Category, Prisma } from '@prisma/client';
 
 import prisma from '@/lib/prisma';
 import { Post } from '@prisma/client';
@@ -84,10 +84,16 @@ export const createPost = async (newPostDto: NewPostDto): Promise<Post | object 
           message: 'A post with this title already exists',
         };
       }
-
-      throw new Error(e.message);
     }
+
+    console.debug(e.message);
   }
 
   return null;
+};
+
+export const getCategories = async () => {
+  const categories: Category[] = await prisma.category.findMany();
+
+  return categories;
 };
