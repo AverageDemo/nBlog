@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import gravatar from 'gravatar';
-import type { Session } from 'next-auth';
+import { Session } from 'next-auth';
 import { Fragment, useState } from 'react';
 import { signOut } from 'next-auth/client';
-import { MenuAlt1Icon } from '@heroicons/react/outline';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
-import { ClockIcon, HomeIcon, ViewListIcon, XIcon } from '@heroicons/react/outline';
+import { MenuAlt1Icon, ClockIcon, HomeIcon, ViewListIcon, XIcon } from '@heroicons/react/outline';
 
 import { classNames } from '@/lib/utils';
 import DHeader from '@/components/dashboard/DHeader';
