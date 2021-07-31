@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import moment from 'moment';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -12,7 +13,6 @@ import {
 
 import { classNames } from '@/lib/utils';
 import type PostType from '@/types/post.type';
-import moment from 'moment';
 
 export default function DashboardDraftTable({ drafts }: Props) {
   return (

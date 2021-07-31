@@ -6,10 +6,6 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { signIn, signOut, useSession } from 'next-auth/client';
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export default function Navbar() {
   const [session, loading] = useSession();
 

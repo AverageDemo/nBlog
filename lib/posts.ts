@@ -91,20 +91,3 @@ export const createPost = async (newPostDto: NewPostDto): Promise<Post | object 
 
   return null;
 };
-
-export const getPostStatistics = async (): Promise<PostStatistics> => {
-  let postStatistics: PostStatistics = {};
-  const posts: Post[] = await prisma.post.findMany();
-
-  postStatistics.total = posts.length;
-
-  postStatistics.drafts = posts.filter((post) => {
-    return post.published === false;
-  }).length;
-
-  postStatistics.published = posts.filter((post) => {
-    return post.published === true;
-  }).length;
-
-  return postStatistics;
-};

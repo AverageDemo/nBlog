@@ -1,7 +1,7 @@
 import type { Post } from '@prisma/client';
 import type { GetStaticProps } from 'next';
 
-import { getAllPosts, getPosts, getPostStatistics } from '@/lib/posts';
+import { getAllPosts } from '@/lib/posts';
 import type PostType from '@/types/post.type';
 import DashboardLayout from '@/components/dashboard/DLayout';
 import type PostStatistics from '@/types/post-statistics.type';
@@ -27,7 +27,15 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     return post.published === false;
   });
 
-  const stats: PostStatistics = await getPostStatistics();
+  const publishedPostCount: number = posts.filter((post) => {
+    return post.published === true;
+  }).length;
+
+  const stats: PostStatistics = {
+    drafts: drafts.length,
+    published: publishedPostCount,
+    total: drafts.length + publishedPostCount,
+  };
 
   let tags: string[] = [];
 
