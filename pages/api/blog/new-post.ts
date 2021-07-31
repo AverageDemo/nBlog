@@ -9,7 +9,7 @@ import NewPostDto from '@/dtos/new-post.dto';
 import UserRole from '@/enums/user-role.enum';
 import type UserData from '@/types/user-data.type';
 
-const newPost = async (req: NextApiRequest, res: NextApiResponse) => {
+const newPost = async (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
   if (req.method === 'POST') {
     const session = await getSession({ req });
 
@@ -52,6 +52,11 @@ type CreatedPost = {
   post?: Post | null;
   status: number;
   message?: string;
+};
+
+type ResponseData = {
+  message?: string;
+  post?: Post | null;
 };
 
 export default newPost;
