@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> nBlog (Next Blog) is a project that I'm working on to showcase the ability of a full-stack NextJS project. It's going to leverage technologies such as TypeScript, Prism, and NextAuth.
+> nBlog (Next Blog) is a project that I'm working on to showcase the ability of a full-stack NextJS project. It's going to leverage technologies such as TypeScript, Prisma, and NextAuth.
 
 ### 🏠 [Homepage](https://github.com/AverageDemo/nBlog#readme)
 
