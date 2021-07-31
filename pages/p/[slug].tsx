@@ -3,6 +3,7 @@ import type { Post } from '@prisma/client';
 
 import remark from 'remark';
 import html from 'remark-html';
+import prism from 'remark-prism';
 
 import Layout from '@/components/Layout';
 import type PostType from '@/types/post.type';
@@ -34,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const post = await getPostBySlug(slug);
 
   if (post && post.content) {
-    content = await remark().use(html).process(post.content);
+    content = await remark().use(html).use(prism).process(post.content);
     post.content = content.toString();
   }
 

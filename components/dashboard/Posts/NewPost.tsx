@@ -1,8 +1,9 @@
 import { Editor } from '@tinymce/tinymce-react';
+import type { MutableRefObject } from 'react';
 import { FormEvent, useRef } from 'react';
 
 export default function NewPost() {
-  const editorRef = useRef(null);
+  const editorRef: MutableRefObject<null> = useRef(null);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -35,10 +36,18 @@ export default function NewPost() {
                       'alignright alignjustify | bullist numlist outdent indent | ' +
                       'removeformat | help',
                     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                    formats: {
+                      h2: { block: 'h2', classes: 'text-xl' },
+                      h3: { block: 'h3', classes: 'text-2xl' },
+                      h1: { block: 'h1', classes: 'text-lg' },
+                      h4: { block: 'h4', classes: 'text-3xl' },
+                      h5: { block: 'h5', classes: 'text-4xl' },
+                      h6: { block: 'h6', classes: 'text-5xl' },
+                    },
                     textpattern_patterns: [
                       { start: '*', end: '*', format: 'italic' },
                       { start: '**', end: '**', format: 'bold' },
-                      { start: '```', end: '```', format: 'codesample' },
+                      { start: '```', end: '```', format: 'code' },
                       { start: '#', format: 'h1' },
                       { start: '##', format: 'h2' },
                       { start: '###', format: 'h3' },
@@ -62,6 +71,14 @@ export default function NewPost() {
                       { text: 'C#', value: 'csharp' },
                       { text: 'C++', value: 'cpp' },
                     ],
+                    setup: function (ed) {
+                      ed.on('keydown', (evt) => {
+                        if (evt.key === 'Tab') {
+                          ed.execCommand('mceInsertContent', false, '&emsp;&emsp;');
+                          evt.preventDefault();
+                        }
+                      });
+                    },
                   }}
                 />
               </div>
