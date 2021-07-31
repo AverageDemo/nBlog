@@ -6,15 +6,16 @@ import { Fragment, useState } from 'react';
 import { signOut } from 'next-auth/client';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
-import { MenuAlt1Icon, LibraryIcon, HomeIcon, CollectionIcon, XIcon } from '@heroicons/react/outline';
+import { MenuAlt1Icon, LibraryIcon, HomeIcon, CollectionIcon, XIcon, DocumentAddIcon } from '@heroicons/react/outline';
 
 import { classNames } from '@/lib/utils';
 import DHeader from '@/components/dashboard/DHeader';
 
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'Published Posts', href: '#', icon: CollectionIcon, current: false },
-  { name: 'Drafts', href: '#', icon: LibraryIcon, current: false },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
+  { name: 'Published Posts', href: '/dashboard/p/published', icon: CollectionIcon, current: false },
+  { name: 'Drafts', href: '/dashboard/p/drafts', icon: LibraryIcon, current: false },
+  { name: 'New Post', href: '/dashboard/p/new', icon: DocumentAddIcon, current: false },
 ];
 
 export default function DashboardSidebar({ tags, session, title, children }: Props) {
