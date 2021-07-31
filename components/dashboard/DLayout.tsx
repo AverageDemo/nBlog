@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/client';
 import DashboardSidebar from '@/components/dashboard/DSidebar';
 import Head from 'next/head';
 
-export default function DashboardLayout({ title, children }: Props) {
+export default function DashboardLayout({ tags, title, children }: Props) {
   const [session, loading] = useSession();
   const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function DashboardLayout({ title, children }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="h-screen flex overflow-hidden bg-white">
-        <DashboardSidebar session={session} title={title}>
+        <DashboardSidebar tags={tags} session={session} title={title}>
           {children}
         </DashboardSidebar>
       </div>
@@ -32,6 +32,7 @@ export default function DashboardLayout({ title, children }: Props) {
 }
 
 type Props = {
+  tags?: string[];
   title?: string;
   children: React.ReactNode;
 };

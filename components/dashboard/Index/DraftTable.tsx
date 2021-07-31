@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -71,12 +72,13 @@ export default function DashboardDraftTable({ drafts }: Props) {
                     <div className="flex items-center space-x-2">
                       <div className="flex flex-shrink-0 -space-x-1">
                         {draft.tags.map((tag: string) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center px-2.5 mr-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
-                          >
-                            {`${tag}`}
-                          </span>
+                          <Link key={tag} href={`/t/${tag}`}>
+                            <a>
+                              <span className="inline-flex items-center px-2.5 mr-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                {`${tag}`}
+                              </span>
+                            </a>
+                          </Link>
                         ))}
                       </div>
                     </div>

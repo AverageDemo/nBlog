@@ -23,6 +23,20 @@ export const getPosts = async (published: boolean = true, slug?: string): Promis
   return posts;
 };
 
+export const getAllPosts = async (): Promise<Post[]> => {
+  const posts: Post[] = await prisma.post.findMany({
+    include: {
+      category: { select: { name: true } },
+      author: { select: { username: true, name: true } },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return posts;
+};
+
 export const getPostBySlug = async (slug: string) => {
   const post = await prisma.post.findFirst({
     where: {

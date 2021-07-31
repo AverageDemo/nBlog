@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import gravatar from 'gravatar';
 import { Session } from 'next-auth';
@@ -5,25 +6,18 @@ import { Fragment, useState } from 'react';
 import { signOut } from 'next-auth/client';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { SearchIcon, SelectorIcon } from '@heroicons/react/solid';
-import { MenuAlt1Icon, ClockIcon, HomeIcon, ViewListIcon, XIcon } from '@heroicons/react/outline';
+import { MenuAlt1Icon, LibraryIcon, HomeIcon, CollectionIcon, XIcon } from '@heroicons/react/outline';
 
 import { classNames } from '@/lib/utils';
 import DHeader from '@/components/dashboard/DHeader';
 
 const navigation = [
   { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'My Posts', href: '#', icon: ViewListIcon, current: false },
-  { name: 'Drafts', href: '#', icon: ClockIcon, current: false },
+  { name: 'My Posts', href: '#', icon: CollectionIcon, current: false },
+  { name: 'Drafts', href: '#', icon: LibraryIcon, current: false },
 ];
 
-// TODO: Populate from DB
-const tags = [
-  { name: 'tag', href: '#', bgColorClass: 'bg-indigo-500' },
-  { name: 'tags2', href: '#', bgColorClass: 'bg-green-500' },
-  { name: 'tags3', href: '#', bgColorClass: 'bg-yellow-500' },
-];
-
-export default function DashboardSidebar({ session, title, children }: Props) {
+export default function DashboardSidebar({ tags, session, title, children }: Props) {
   const [showSidebar, setShowSidebar] = useState(false);
 
   return (
@@ -77,13 +71,15 @@ export default function DashboardSidebar({ session, title, children }: Props) {
                 </div>
               </Transition.Child>
               <div className="flex-shrink-0 flex items-center px-4 h-8 w-auto">
-                <Image
+                <div className="text-4xl font-semibold text-blue-400">nBlog</div>
+                {/* LOGO
+                  <Image
                   layout="intrinsic"
                   width="240"
                   height="240"
                   src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"
                   alt="Workflow"
-                />
+                /> */}
               </div>
               <div className="mt-5 flex-1 h-0 overflow-y-auto">
                 <nav className="px-2">
@@ -119,19 +115,15 @@ export default function DashboardSidebar({ session, title, children }: Props) {
                       Tags
                     </h3>
                     <div className="mt-1 space-y-1" role="group" aria-labelledby="teams-headline">
-                      {tags.map((tag) => (
-                        <a
-                          key={tag.name}
-                          href={tag.href}
-                          className="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                        >
-                          <span
-                            className={classNames(tag.bgColorClass, 'w-2.5 h-2.5 mr-4 rounded-full')}
-                            aria-hidden="true"
-                          />
-                          <span className="truncate">{tag.name}</span>
-                        </a>
-                      ))}
+                      {tags &&
+                        tags.map((tag) => (
+                          <Link key={tag} href={`/t/${tag}`}>
+                            <a className="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50">
+                              <span className="bg-blue-400 w-2.5 h-2.5 mr-4 rounded-full" aria-hidden="true" />
+                              <span className="truncate">{tag}</span>
+                            </a>
+                          </Link>
+                        ))}
                     </div>
                   </div>
                 </nav>
@@ -146,13 +138,15 @@ export default function DashboardSidebar({ session, title, children }: Props) {
       <div className="hidden lg:flex lg:flex-shrink-0">
         <div className="flex flex-col w-64 border-r border-gray-200 pt-5 pb-4 bg-gray-100">
           <div className="flex items-center flex-shrink-0 px-6 h-8 w-auto">
-            <Image
+            <div className="text-4xl font-semibold text-blue-400">nBlog</div>
+            {/* LOGO
+              <Image
               src="https://tailwindui.com/img/logos/workflow-logo-purple-500-mark-gray-700-text.svg"
               alt="Workflow"
               layout="intrinsic"
               width="240"
               height="240"
-            />
+            /> */}
           </div>
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="h-0 flex-1 flex flex-col overflow-y-auto">
@@ -296,19 +290,15 @@ export default function DashboardSidebar({ session, title, children }: Props) {
                   Tags
                 </h3>
                 <div className="mt-1 space-y-1" role="group" aria-labelledby="teams-headline">
-                  {tags.map((tag) => (
-                    <a
-                      key={tag.name}
-                      href={tag.href}
-                      className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                    >
-                      <span
-                        className={classNames(tag.bgColorClass, 'w-2.5 h-2.5 mr-4 rounded-full')}
-                        aria-hidden="true"
-                      />
-                      <span className="truncate">{tag.name}</span>
-                    </a>
-                  ))}
+                  {tags &&
+                    tags.map((tag) => (
+                      <Link key={tag} href={`/t/${tag}`}>
+                        <a className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50">
+                          <span className="bg-blue-400 w-2.5 h-2.5 mr-4 rounded-full" aria-hidden="true" />
+                          <span className="truncate">{tag}</span>
+                        </a>
+                      </Link>
+                    ))}
                 </div>
               </div>
             </nav>
@@ -440,6 +430,7 @@ export default function DashboardSidebar({ session, title, children }: Props) {
 }
 
 type Props = {
+  tags?: string[];
   session?: Session | null;
   title?: string;
   children: React.ReactNode;

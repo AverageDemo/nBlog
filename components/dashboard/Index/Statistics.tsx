@@ -1,12 +1,12 @@
-import { CursorClickIcon, MailOpenIcon, UsersIcon } from '@heroicons/react/outline';
+import { ClipboardListIcon, LibraryIcon, CollectionIcon } from '@heroicons/react/outline';
 
 import type PostStatistics from '@/types/post-statistics.type';
 
 export default function DashboardStatistics({ stats }: Props) {
   const statistics = [
-    { id: 1, name: 'Total Posts', stat: stats.total, icon: UsersIcon },
-    { id: 2, name: 'Active Drafts', stat: stats.drafts, icon: MailOpenIcon },
-    { id: 3, name: 'Published Posts', stat: stats.published, icon: CursorClickIcon },
+    { id: 1, name: 'Total Posts', stat: stats.total, icon: CollectionIcon },
+    { id: 2, name: 'Active Drafts', stat: stats.drafts, icon: LibraryIcon },
+    { id: 3, name: 'Published Posts', stat: stats.published, icon: ClipboardListIcon },
   ];
 
   return (
