@@ -10,6 +10,8 @@ import {
 } from '@heroicons/react/solid';
 
 import { classNames } from '@/lib/utils';
+import type PostType from '@/types/post.type';
+import moment from 'moment';
 
 export default function DashboardDraftTable({ drafts }: Props) {
   return (
@@ -23,12 +25,9 @@ export default function DashboardDraftTable({ drafts }: Props) {
             <li key={draft.id}>
               <a href="#" className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
                 <span className="flex items-center truncate space-x-3">
-                  <span
-                    className={classNames(draft.bgColorClass, 'w-2.5 h-2.5 flex-shrink-0 rounded-full')}
-                    aria-hidden="true"
-                  />
+                  <span className="bg-pink-600 w-2.5 h-2.5 flex-shrink-0 rounded-full" aria-hidden="true" />
                   <span className="font-medium truncate text-sm leading-6">
-                    {draft.title} <span className="truncate font-normal text-gray-500">in {draft.team}</span>
+                    {draft.title} <span className="truncate font-normal text-gray-500">in {draft.category.name}</span>
                   </span>
                 </span>
                 <ChevronRightIcon className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
@@ -60,13 +59,10 @@ export default function DashboardDraftTable({ drafts }: Props) {
                 <tr key={draft.id}>
                   <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                     <div className="flex items-center space-x-3 lg:pl-2">
-                      <div
-                        className={classNames(draft.bgColorClass, 'flex-shrink-0 w-2.5 h-2.5 rounded-full')}
-                        aria-hidden="true"
-                      />
+                      <div className="bg-pink-600  flex-shrink-0 w-2.5 h-2.5 rounded-full" aria-hidden="true" />
                       <a href="#" className="truncate hover:text-gray-600">
                         <span>
-                          {draft.title} <span className="text-gray-500 font-normal">in {draft.category}</span>
+                          {draft.title} <span className="text-gray-500 font-normal">in {draft.category.name}</span>
                         </span>
                       </a>
                     </div>
@@ -86,7 +82,7 @@ export default function DashboardDraftTable({ drafts }: Props) {
                     </div>
                   </td>
                   <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                    {draft.created}
+                    {moment(draft.createdAt).format('MMMM Do, YYYY')}
                   </td>
                   <td className="pr-6">
                     <Menu as="div" className="relative flex justify-end items-center">
@@ -199,5 +195,5 @@ export default function DashboardDraftTable({ drafts }: Props) {
 }
 
 type Props = {
-  drafts: any[];
+  drafts: PostType[];
 };

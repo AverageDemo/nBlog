@@ -1,16 +1,18 @@
 import { CursorClickIcon, MailOpenIcon, UsersIcon } from '@heroicons/react/outline';
 
-const stats = [
-  { id: 1, name: 'Total Posts', stat: '24', icon: UsersIcon },
-  { id: 2, name: 'Active Drafts', stat: '2', icon: MailOpenIcon },
-  { id: 3, name: 'Published Posts', stat: '22', icon: CursorClickIcon },
-];
+import type PostStatistics from '@/types/post-statistics.type';
 
-export default function DashboardStatistics() {
+export default function DashboardStatistics({ stats }: Props) {
+  const statistics = [
+    { id: 1, name: 'Total Posts', stat: stats.total, icon: UsersIcon },
+    { id: 2, name: 'Active Drafts', stat: stats.drafts, icon: MailOpenIcon },
+    { id: 3, name: 'Published Posts', stat: stats.published, icon: CursorClickIcon },
+  ];
+
   return (
     <div>
       <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {stats.map((item) => (
+        {statistics.map((item) => (
           <div
             key={item.id}
             className="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden"
@@ -39,3 +41,7 @@ export default function DashboardStatistics() {
     </div>
   );
 }
+
+type Props = {
+  stats: PostStatistics;
+};

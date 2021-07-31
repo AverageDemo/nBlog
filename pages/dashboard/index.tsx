@@ -1,26 +1,35 @@
+import type { Post } from '@prisma/client';
+import type { GetStaticProps } from 'next';
+
+import { getPosts, getPostStatistics } from '@/lib/posts';
+import type PostType from '@/types/post.type';
 import DashboardLayout from '@/components/dashboard/DLayout';
+import type PostStatistics from '@/types/post-statistics.type';
 import DashboardDraftTable from '@/components/dashboard/Index/DraftTable';
 import DashboardStatistics from '@/components/dashboard/Index/Statistics';
 
-const drafts = [
-  {
-    id: 1,
-    category: 'Test Category',
-    title: 'Test draft',
-    tags: ['tag', 'test'],
-    created: 'March 17, 2020',
-    bgColorClass: 'bg-pink-600',
-  },
-];
-
-export default function DashboardIndexPage() {
+export default function DashboardIndexPage({ drafts, stats }: Props) {
   return (
     <DashboardLayout>
       <div className="px-4 mt-6 sm:px-6 lg:px-8">
-        <DashboardStatistics />
+        <DashboardStatistics stats={stats} />
       </div>
 
       <DashboardDraftTable drafts={drafts} />
     </DashboardLayout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const drafts: Post[] = await getPosts(false);
+  const stats = await getPostStatistics();
+
+  return {
+    props: { drafts, stats },
+  };
+};
+
+type Props = {
+  drafts: PostType[];
+  stats: PostStatistics;
+};

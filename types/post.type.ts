@@ -5,6 +5,9 @@ type PostType = {
   title: string;
   slug: string;
   author: AuthorType;
+  category: {
+    name: string;
+  };
   content: string;
   mdxContent?: string;
   createdAt: number;
