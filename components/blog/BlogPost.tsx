@@ -24,6 +24,17 @@ export default function BlogPost({ children }: Props) {
             <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl md:text-5xl md:leading-[3.5rem]">
               {children.title}
             </h1>
+            <div className="pt-6">
+              {children.tags.map((tag) => (
+                <Link key={tag} href={`/t/${tag}`}>
+                  <a>
+                    <span className="inline-flex items-center px-2.5 py-0.5 mr-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {tag}
+                    </span>
+                  </a>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </header>
@@ -48,7 +59,7 @@ export default function BlogPost({ children }: Props) {
                   <dt className="sr-only">Username</dt>
                   <dd>
                     <Link href={`/u/${children.author.username.toLowerCase()}`}>
-                      <a className="text-green-600 hover:text-green-700">{`@${children.author.username}`}</a>
+                      <a className="text-blue-400 hover:text-blue-500">{`@${children.author.username}`}</a>
                     </Link>
                   </dd>
                 </dl>
@@ -56,7 +67,7 @@ export default function BlogPost({ children }: Props) {
               <li className="flex items-center space-x-2">
                 <div className="pt-8">
                   <Link href="/">
-                    <a className="text-green-600 hover:text-green-700">&larr; Back to the blog</a>
+                    <a className="text-blue-400 hover:text-blue-500">&larr; Back to the blog</a>
                   </Link>
                 </div>
               </li>

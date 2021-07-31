@@ -36,7 +36,7 @@ export default function PostList({ posts }: Props) {
                 {post.content.length > 400 && (
                   <div className="text-base font-medium">
                     <Link href={`/p/${post.slug}`}>
-                      <a className="text-green-600 hover:text-green-700" aria-label={`Read "${post.title}"`}>
+                      <a className="text-blue-400 hover:text-blue-500" aria-label={`Read "${post.title}"`}>
                         Read more &rarr;
                       </a>
                     </Link>

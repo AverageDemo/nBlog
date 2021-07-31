@@ -20,7 +20,7 @@ export default function Navbar() {
           <Link href="/">
             <a aria-label="nBlog">
               {/* Your logo should go here */}
-              <div className="text-4xl font-semibold text-green-400">nBlog</div>
+              <div className="text-4xl font-semibold text-blue-400">nBlog</div>
             </a>
           </Link>
         </div>
